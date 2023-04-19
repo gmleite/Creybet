@@ -21,12 +21,10 @@ builder.Services.AddCors((options) =>
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseCors("DevCors");
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseCors("DevCors");
+app.UseSwagger();
+app.UseSwaggerUI();
+
 
 app.UseHttpsRedirection();
 
