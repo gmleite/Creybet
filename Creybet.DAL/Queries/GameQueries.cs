@@ -7,4 +7,7 @@ public class GameQueries
     public static string AddGame = @"INSERT INTO CreybetSchema.Games (CreatedBy, VictoryPayout, DefeatPayout, TotalVictoryBalance, TotalDefeatBalance, CreatedAt, GameResult) VALUES (@CreatedBy, 1.5, 1.5, 1.0, 1.0, @CreatedAt, @GameResult);";
     public static string UpdateGame = @"UPDATE CreybetSchema.Games SET CreatedBy = @CreatedBy, VictoryPayout = @VictoryPayout, DefeatPayout = @DefeatPayout, TotalVictoryBalance = @TotalVictoryBalance, TotalDefeatBalance = @TotalDefeatBalance, CreatedAt = @CreatedAt, GameResult = @GameResult WHERE GameId = @GameId;";
     public static string DeleteGame = @"DELETE FROM CreybetSchema.Games WHERE GameId = @Id;";
+    public static string FindGameByUser = @"SELECT * FROM CreybetSchema.Games WHERE CreatedBy = @DiscordUserId;";
+    public static string FindGameAvailableToBet = @"SELECT * FROM CreybetSchema.Games WHERE GameResult IS NULL;";
+    public static string UpdatePayout = @"UPDATE CreybetSchema.Games SET VictoryPayout = @VictoryPayout, DefeatPayout = @DefeatPayout, TotalVictoryBalance = @TotalVictoryBalance, TotalDefeatBalance = @TotalDefeatBalance WHERE GameId = @GameId;";
 }

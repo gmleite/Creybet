@@ -20,7 +20,7 @@ public class BetRepository : IBetRepository
     {
         using (IDbConnection connection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
         {
-            var result = await connection.ExecuteAsync(BetQueries.AddBet, new { entity.BetResult, entity.BetValue, entity.ChoosenOption, entity.CreatedAt, entity.BetId, entity.UserId, entity.GameId});
+            var result = await connection.ExecuteAsync(BetQueries.AddBet, new { entity.BetResult, entity.BetValue, entity.ChoosenOption, entity.CreatedAt, entity.BetId, entity.DiscordUserId, entity.GameId});
             return result;
         }
     }
@@ -56,7 +56,7 @@ public class BetRepository : IBetRepository
     {
         using (IDbConnection connection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
         {
-            var bet = await connection.ExecuteAsync(BetQueries.UpdateBet, new { entity.BetId, entity.BetResult, entity.BetValue, entity.ChoosenOption, entity.CreatedAt, entity.GameId, entity.UserId });
+            var bet = await connection.ExecuteAsync(BetQueries.UpdateBet, new { entity.BetId, entity.BetResult, entity.BetValue, entity.ChoosenOption, entity.CreatedAt, entity.GameId, entity.DiscordUserId });
             return bet;
         }
     }

@@ -69,4 +69,16 @@ public class GameController : ControllerBase
         }
         return BadRequest();
     }
+
+    [HttpGet("FindGameByUser/{discordUserId}")]
+    public IEnumerable<Game> FindGameByUser(string discordUserId)
+    {
+        return _gameRepository.GetGamesByUserAsync(discordUserId).Result;
+    }
+
+    [HttpGet("FindGameAvailableToBet")]
+    public IEnumerable<Game> FindGameAvailableToBet()
+    {
+        return _gameRepository.GetGamesAvailableToBetAsync().Result;
+    }
 }

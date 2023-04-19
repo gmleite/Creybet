@@ -52,6 +52,24 @@ public class GameRepository : IGameRepository
         }
     }
 
+    public async Task<IEnumerable<Game>> GetGamesAvailableToBetAsync()
+    {
+        using (IDbConnection connection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
+        {
+            var game = await connection.QueryAsync<Game>(GameQueries.FindGameAvailableToBet);
+            return game;
+        }
+    }
+
+    public async Task<IEnumerable<Game>> GetGamesByUserAsync(string discordUserId)
+    {
+        using (IDbConnection connection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
+        {
+            var game = await connection.QueryAsync<Game>(GameQueries.FindGameByUser, new { discordUserId });
+            return game;
+        }
+    }
+
     public async Task<int> UpdateAsync(Game entity)
     {
         using (IDbConnection connection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
@@ -59,5 +77,39 @@ public class GameRepository : IGameRepository
             var game = await connection.ExecuteAsync(GameQueries.UpdateGame, new { entity.GameId, entity.CreatedBy, entity.VictoryPayout, entity.DefeatPayout, entity.TotalVictoryBalance, entity.TotalDefeatBalance, entity.CreatedAt, entity.GameResult });
             return game;
         }
+    }
+
+    public async Task<int> UpdatePayout(int gameId, decimal victoryPayout, decimal defeatPayout, decimal totalVictoryBalance, decimal totalDefeatBalance)
+    {
+        using (IDbConnection connection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
+        {
+            var game = await connection.ExecuteAsync(GameQueries.UpdatePayout, new { gameId, victoryPayout, defeatPayout, totalVictoryBalance, totalDefeatBalance });
+            return game;
+        }
+    }
+
+    public Game CalculateVictoryPayout(Game game, decimal betValue)
+    {
+        game.TotalVictoryBalance += betValue;
+        game.VictoryPayout = (game.TotalDefeatBalance + game.TotalVictoryBalance) / game.TotalVictoryBalance;
+        game.DefeatPayout = (game.TotalDefeatBalance + game.TotalVictoryBalance) / game.TotalDefeatBalance;
+
+        if (game.VictoryPayout < 1.10m)
+        {
+            game.VictoryPayout = 1.10m;
+        }
+        return game;
+    }
+
+    public Game CalculateDefeatPayout(Game game, decimal betValue)
+    {
+        game.TotalDefeatBalance += betValue;
+        game.DefeatPayout = (game.TotalDefeatBalance + game.TotalVictoryBalance) / game.TotalDefeatBalance;
+        game.VictoryPayout = (game.TotalDefeatBalance + game.TotalVictoryBalance) / game.TotalVictoryBalance;
+        if (game.DefeatPayout < 1.10m)
+        {
+            game.DefeatPayout = 1.10m;
+        }
+        return game;
     }
 }

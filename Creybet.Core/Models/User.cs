@@ -3,7 +3,6 @@ namespace Creybet.Core.Models;
 
 public partial class User
 {
-    public int UserId { get; set; }
     public string DiscordUserId { get; set; }
     public decimal Balance { get; set; }
     public bool DidDailyCheckin { get; set; }

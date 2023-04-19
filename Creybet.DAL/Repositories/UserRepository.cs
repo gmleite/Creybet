@@ -56,7 +56,7 @@ public class UserRepository : IUserRepository
     {
         using (IDbConnection connection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
         {
-            var user = await connection.ExecuteAsync(UserQueries.UpdateUser, new { entity.UserId, entity.DiscordUserId, entity.Balance, entity.BetsLost, entity.BetsWon, entity.DidDailyCheckin });
+            var user = await connection.ExecuteAsync(UserQueries.UpdateUser, new { entity.DiscordUserId, entity.Balance, entity.BetsLost, entity.BetsWon, entity.DidDailyCheckin });
             return user;
         }
     }
