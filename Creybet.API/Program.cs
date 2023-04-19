@@ -8,6 +8,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IGameRepository, GameRepository>();
+builder.Services.AddScoped<IBetRepository, BetRepository>();
 builder.Services.AddCors((options) =>
     {
         options.AddPolicy("DevCors", (corsBuilder) =>
