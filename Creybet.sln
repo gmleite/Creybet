@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Creybet.API", "Creybet.API\Creybet.API.csproj", "{2B43F83B-BE7F-4CFA-A4D5-EDE13D8509E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Creybet.Core", "Creybet.Core\Creybet.Core.csproj", "{B0E90439-4FD4-4427-A9A4-51F627D92C33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Creybet.DAL", "Creybet.DAL\Creybet.DAL.csproj", "{88DB61AC-803F-4292-9E40-31965D16636D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2B43F83B-BE7F-4CFA-A4D5-EDE13D8509E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B43F83B-BE7F-4CFA-A4D5-EDE13D8509E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B43F83B-BE7F-4CFA-A4D5-EDE13D8509E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B43F83B-BE7F-4CFA-A4D5-EDE13D8509E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0E90439-4FD4-4427-A9A4-51F627D92C33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0E90439-4FD4-4427-A9A4-51F627D92C33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0E90439-4FD4-4427-A9A4-51F627D92C33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0E90439-4FD4-4427-A9A4-51F627D92C33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A147517-A23A-4E89-9008-783A84469BA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A147517-A23A-4E89-9008-783A84469BA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A147517-A23A-4E89-9008-783A84469BA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A147517-A23A-4E89-9008-783A84469BA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88DB61AC-803F-4292-9E40-31965D16636D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88DB61AC-803F-4292-9E40-31965D16636D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88DB61AC-803F-4292-9E40-31965D16636D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88DB61AC-803F-4292-9E40-31965D16636D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
