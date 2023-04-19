@@ -33,6 +33,7 @@ public class UserController : ControllerBase
         var rowsAffected = _userRepository.AddAsync(new User
         {
             Balance = user.Balance,
+            Name = user.Name,
             DiscordUserId = user.DiscordUserId,
             DidDailyCheckin = user.DidDailyCheckin,
             BetsWon = user.BetsWon,

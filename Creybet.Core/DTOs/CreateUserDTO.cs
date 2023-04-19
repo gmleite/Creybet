@@ -3,6 +3,7 @@ namespace Creybet.Core.DTOs;
 
 public partial class CreateUserDTO
 {
+    public string Name { get; set; }
     public string DiscordUserId { get; set; }
     public decimal Balance { get; set; }
     public bool DidDailyCheckin { get; set; }
@@ -11,7 +12,12 @@ public partial class CreateUserDTO
 
     public CreateUserDTO()
     {
-        if(DiscordUserId == null){
+        if (Name == null)
+        {
+            Name = "";
+        }
+        if (DiscordUserId == null)
+        {
             DiscordUserId = "";
         }
     }
