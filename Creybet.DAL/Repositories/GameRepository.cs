@@ -18,7 +18,7 @@ public class GameRepository : IGameRepository
 
     public async Task<int> AddAsync(Game entity)
     {
-        using (IDbConnection connection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
+        using (IDbConnection connection = new SqlConnection(_config.GetConnectionString("AzureSQL")))
         {
             var result = await connection.ExecuteAsync(GameQueries.AddGame, new { entity.CreatedBy, entity.VictoryPayout, entity.DefeatPayout, entity.TotalVictoryBalance, entity.TotalDefeatBalance, entity.CreatedAt, entity.GameResult });
             return result;
@@ -27,7 +27,7 @@ public class GameRepository : IGameRepository
 
     public async Task<int> DeleteAsync(long id)
     {
-        using (IDbConnection connection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
+        using (IDbConnection connection = new SqlConnection(_config.GetConnectionString("AzureSQL")))
         {
             var result = await connection.ExecuteAsync(GameQueries.DeleteGame, new { Id = id });
             return result;
@@ -36,7 +36,7 @@ public class GameRepository : IGameRepository
 
     public async Task<IReadOnlyList<Game>> GetAllAsync()
     {
-        using (IDbConnection connection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
+        using (IDbConnection connection = new SqlConnection(_config.GetConnectionString("AzureSQL")))
         {
             var games = await connection.QueryAsync<Game>(GameQueries.GetGames);
             return games.ToList();
@@ -45,7 +45,7 @@ public class GameRepository : IGameRepository
 
     public async Task<Game> GetByIdAsync(long id)
     {
-        using (IDbConnection connection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
+        using (IDbConnection connection = new SqlConnection(_config.GetConnectionString("AzureSQL")))
         {
             var game = await connection.QuerySingleOrDefaultAsync<Game>(GameQueries.GetGameById, new { Id = id });
             return game;
@@ -54,7 +54,7 @@ public class GameRepository : IGameRepository
 
     public async Task<IEnumerable<Game>> GetGamesAvailableToBetAsync()
     {
-        using (IDbConnection connection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
+        using (IDbConnection connection = new SqlConnection(_config.GetConnectionString("AzureSQL")))
         {
             var game = await connection.QueryAsync<Game>(GameQueries.FindGameAvailableToBet);
             return game;
@@ -63,7 +63,7 @@ public class GameRepository : IGameRepository
 
     public async Task<IEnumerable<Game>> GetGamesByUserAsync(string discordUserId)
     {
-        using (IDbConnection connection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
+        using (IDbConnection connection = new SqlConnection(_config.GetConnectionString("AzureSQL")))
         {
             var game = await connection.QueryAsync<Game>(GameQueries.FindGameByUser, new { discordUserId });
             return game;
@@ -72,7 +72,7 @@ public class GameRepository : IGameRepository
 
     public async Task<int> UpdateAsync(Game entity)
     {
-        using (IDbConnection connection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
+        using (IDbConnection connection = new SqlConnection(_config.GetConnectionString("AzureSQL")))
         {
             var game = await connection.ExecuteAsync(GameQueries.UpdateGame, new { entity.GameId, entity.CreatedBy, entity.VictoryPayout, entity.DefeatPayout, entity.TotalVictoryBalance, entity.TotalDefeatBalance, entity.CreatedAt, entity.GameResult });
             return game;
@@ -81,7 +81,7 @@ public class GameRepository : IGameRepository
 
     public async Task<int> UpdatePayout(int gameId, decimal victoryPayout, decimal defeatPayout, decimal totalVictoryBalance, decimal totalDefeatBalance)
     {
-        using (IDbConnection connection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
+        using (IDbConnection connection = new SqlConnection(_config.GetConnectionString("AzureSQL")))
         {
             var game = await connection.ExecuteAsync(GameQueries.UpdatePayout, new { gameId, victoryPayout, defeatPayout, totalVictoryBalance, totalDefeatBalance });
             return game;
