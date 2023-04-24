@@ -19,6 +19,15 @@ builder.Services.AddCors((options) =>
             });
     });
 
+builder.Services.ConfigureSwaggerGen(setup =>
+{
+    setup.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Title = "Creybet",
+        Version = "v1"
+    });
+});
+
 var app = builder.Build();
 
 app.UseCors("DevCors");
