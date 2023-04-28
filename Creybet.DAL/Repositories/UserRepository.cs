@@ -25,7 +25,7 @@ public class UserRepository : IUserRepository
         }
     }
 
-    public async Task<int> DeleteAsync(long id)
+    public async Task<int> DeleteAsync(string id)
     {
         using (IDbConnection connection = new SqlConnection(_config.GetConnectionString("AzureSQL")))
         {
@@ -43,7 +43,7 @@ public class UserRepository : IUserRepository
         }
     }
 
-    public async Task<User> GetByIdAsync(long id)
+    public async Task<User> GetByIdAsync(string id)
     {
         using (IDbConnection connection = new SqlConnection(_config.GetConnectionString("AzureSQL")))
         {

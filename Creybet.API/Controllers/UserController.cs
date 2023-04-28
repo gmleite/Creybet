@@ -22,7 +22,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("FindOne/{id}")]
-    public User FindOne(int id)
+    public User FindOne(string id)
     {
         return _userRepository.GetByIdAsync(id).Result;
     }
@@ -59,7 +59,7 @@ public class UserController : ControllerBase
     }
 
     [HttpDelete("Delete/{id}")]
-    public IActionResult Delete(int id)
+    public IActionResult Delete(string id)
     {
         int rowsAffected = _userRepository.DeleteAsync(id).Result;
         if (rowsAffected > 0)
