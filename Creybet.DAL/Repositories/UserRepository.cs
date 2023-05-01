@@ -60,4 +60,12 @@ public class UserRepository : IUserRepository
             return user;
         }
     }
+
+    public async Task UpdateBalanceAsync(string id, decimal amount)
+    {
+        using (IDbConnection connection = new SqlConnection(_config.GetConnectionString("AzureSQL")))
+        {
+            var user = await connection.ExecuteAsync(UserQueries.UpdateUserBalance, new { DiscordUserId = id, Balance = amount });
+        }
+    }
 }

@@ -11,10 +11,12 @@ public class BetController : ControllerBase
 {
     private readonly IBetRepository _betRepository;
     private readonly IGameRepository _gameRepository;
-    public BetController(IBetRepository betRepository, IGameRepository gameRepository)
+    private readonly IUserRepository _userRepository;
+    public BetController(IBetRepository betRepository, IGameRepository gameRepository, IUserRepository userRepository)
     {
         _betRepository = betRepository;
         _gameRepository = gameRepository;
+        _userRepository = userRepository;
     }
 
     [HttpGet("FindAll")]
@@ -33,11 +35,15 @@ public class BetController : ControllerBase
     public IActionResult Create([FromBody] CreateBetDTO Bet)
     {
         Game game = _gameRepository.GetByIdAsync(Bet.GameId).Result;
-        decimal betvalue = Bet.BetValue;
-        if (game == null)
+        User user = _userRepository.GetByIdAsync(Bet.DiscordUserId).Result;
+        if (game == null || user == null)
         {
-            return BadRequest();
+            return BadRequest("User or Game not found");
         }
+        if (user.Balance < Bet.BetValue){
+            return BadRequest("Insufficient funds");
+        }
+            decimal betvalue = Bet.BetValue;
         if (Bet.ChoosenOption)
         {
             if (game.TotalVictoryBalance == 1)
@@ -67,10 +73,10 @@ public class BetController : ControllerBase
         }).Result;
 
         var rowsAffectedGame = _gameRepository.UpdatePayout(Bet.GameId, game.VictoryPayout, game.DefeatPayout, game.TotalVictoryBalance, game.TotalDefeatBalance).Result;
-
+        _userRepository.UpdateBalanceAsync(Bet.DiscordUserId, user.Balance - Bet.BetValue);
         if (rowsAffectedBet > 0)
         {
-            return Created("Bet", new Dictionary<string, decimal> { { "VictoryPayout", game.VictoryPayout }, {"DefeatPayout", game.DefeatPayout} });
+            return Created("Bet", new Dictionary<string, decimal> { { "VictoryPayout", game.VictoryPayout }, { "DefeatPayout", game.DefeatPayout } });
         }
         return BadRequest();
     }
