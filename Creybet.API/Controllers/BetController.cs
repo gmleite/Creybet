@@ -72,7 +72,7 @@ public class BetController : ControllerBase
             BetResult = null
         }).Result;
 
-        var rowsAffectedGame = _gameRepository.UpdatePayout(Bet.GameId, game.VictoryPayout, game.DefeatPayout, game.TotalVictoryBalance, game.TotalDefeatBalance).Result;
+        _gameRepository.UpdatePayout(Bet.GameId, game.VictoryPayout, game.DefeatPayout, game.TotalVictoryBalance, game.TotalDefeatBalance);
         _userRepository.UpdateBalanceAsync(Bet.DiscordUserId, user.Balance - Bet.BetValue);
         if (rowsAffectedBet > 0)
         {
